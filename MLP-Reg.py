@@ -7,10 +7,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import r2_score
 import pandas as pd
 
-# importing data
-mydata=pd.read_excel(r'C:\Users\h.alavi\Documents\GitHub\APC-PRJ\data-feo.xlsx')
-X = mydata.iloc[:,0:10].values #Consantrate Data
-y = mydata.iloc[:,11].values # Plat Total Fe
+inputdata=pd.read_csv(r'C:\Users\h.alavi\Documents\GitHub\APC-PRJ\input-data.csv')
+outputdata=pd.read_csv(r'C:\Users\h.alavi\Documents\GitHub\APC-PRJ\output-data.csv')
+
+X= inputdata.iloc[:,:].values
+y=outputdata.iloc[:,10].values
+
+
 y = y.reshape(-1,1)
 #print(X)
 #print(y)
@@ -32,7 +35,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_scaled ,random_s
 
 
 
-reg = MLPRegressor(hidden_layer_sizes=(1000,),activation="relu" ,random_state=1, max_iter=2000).fit(X_train, y_train.ravel())
+reg = MLPRegressor(hidden_layer_sizes=(100,),activation="relu" ,random_state=1, max_iter=2000).fit(X_train, y_train.ravel())
 y_pred=reg.predict(X_test)
 y_pred_train = reg.predict(X_train)
 
